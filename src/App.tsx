@@ -67,8 +67,19 @@ function SyncedCounters() {
 }
 
 function CounterList() {
+  const [counters, setCounters] = useState<number[]>([]);
+
+  function newCounter() {
+    setCounters([...counters, 0]);
+  }
+  
   return (
-    <div>Counter list</div>
+    <>
+      <button onClick={newCounter}>New counter</button>
+      <ul>
+        {counters.map((count, index) => <li key={index}>{count}</li>)}
+      </ul>
+    </>
   );
 }
 
