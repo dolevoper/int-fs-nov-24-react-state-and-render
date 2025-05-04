@@ -1,27 +1,22 @@
-import { useState } from "react";
 import styles from "./Counter.module.scss";
 
-export function Counter() {
-    const [count, setCount] = useState(0);
-
+type CounterProps = {
+    count: number;
+    onHalfClick: () => void;
+    onDecreaseClick: () => void;
+    onIncreaseClick: () => void;
+    onDoubleClick: () => void;
+    onResetClick: () => void;
+};
+export function Counter({ count, onHalfClick, onDecreaseClick, onIncreaseClick, onDoubleClick, onResetClick }: CounterProps) {
     return (
         <article className={styles.container}>
-            <button onClick={() => {
-                setCount(count / 2);
-            }}>➗2</button>
-            <button onClick={() => {
-                setCount(count - 1);
-            }}>➖1</button>
+            <button onClick={onHalfClick}>➗2</button>
+            <button onClick={onDecreaseClick}>➖1</button>
             <span>{count}</span>
-            <button onClick={() => {
-                setCount(count + 1);
-            }}>➕1</button>
-            <button onClick={() => {
-                setCount(count * 2);
-            }}>✖️2</button>
-            <button onClick={() => {
-                setCount(0);
-            }}>Reset</button>
+            <button onClick={onIncreaseClick}>➕1</button>
+            <button onClick={onDoubleClick}>✖️2</button>
+            <button onClick={onResetClick}>Reset</button>
         </article>
     );
 }
