@@ -10,9 +10,6 @@ function App() {
         <button onClick={forceRender}>Render</button>
       </div>
       <Counter />
-      <Counter />
-      <Counter />
-      <Counter />
     </>
   )
 }

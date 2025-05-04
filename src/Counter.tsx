@@ -7,7 +7,9 @@ export function Counter() {
 
     return (
         <article className={styles.container}>
-            <button>➗2</button>
+            <button onClick={() => {
+                setCount(count / 2);
+            }}>➗2</button>
             <button onClick={() => {
                 setCount(count - 1);
                 console.log(count);
@@ -17,8 +19,12 @@ export function Counter() {
                 setCount(count + 1);
                 console.log(count);
             }}>➕1</button>
-            <button>✖️2</button>
-            <button>Reset</button>
+            <button onClick={() => {
+                setCount(count * 2)
+            }}>✖️2</button>
+            <button onClick={() => {
+                setCount(count - count);
+            }}>Reset</button>
         </article>
     );
 }
