@@ -43,17 +43,10 @@ function SyncedCounters() {
 
   return (
     <>
-<<<<<<< HEAD
-      <div>
-        <button onClick={forceRender}>Render</button>
-      </div>
-      <Counter />
-=======
       <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
       <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
       <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
       <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
->>>>>>> 0b5a51012e030be945ac48beef61c8e8125d1e1d
     </>
   );
 }
