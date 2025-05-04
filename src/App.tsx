@@ -1,4 +1,4 @@
-import { Counter } from './Counter';
+import { Counter } from "./Counter";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Counter />
       <Counter />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
