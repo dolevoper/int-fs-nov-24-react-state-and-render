@@ -7,6 +7,7 @@ import { Counter } from "./Counter";
 //      - show one button: "New counter" - clicking on it will add a counter to the screen
 //      - next to each counter show a delete button to remove the counter from the screen
 //      - counters should not be synced (each should have an individual state)
+// 4. add up/down buttons in each counter in the list to re-order the counters
 // Bonus - maintain the state of the counters when "navigating" back and forth  between the components
 
 function App() {
