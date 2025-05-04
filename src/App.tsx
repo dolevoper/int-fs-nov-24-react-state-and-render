@@ -10,11 +10,26 @@ import { Counter } from "./Counter";
 // Bonus - maintain the state of the counters when "navigating" back and forth  between the components
 
 function App() {
+  const [currentTab, setCurrentTab] = useState<"synced" | "list">("synced");
+
   return (
     <>
-      <SyncedCounters />
-      <CounterList />
+      <Nav onSyncedClick={() => setCurrentTab("synced")} onListClick={() => setCurrentTab("list")} />
+      {currentTab === "synced" ? <SyncedCounters /> : <CounterList />}
     </>
+  );
+}
+
+type NavProps = {
+  onSyncedClick: () => void;
+  onListClick: () => void;
+};
+function Nav({ onSyncedClick, onListClick }: NavProps) {
+  return (
+    <nav>
+      <button onClick={onSyncedClick}>Synced</button>
+      <button onClick={onListClick}>List</button>
+    </nav>
   );
 }
 
