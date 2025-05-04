@@ -7,14 +7,30 @@ import { Counter } from "./Counter";
 //      - show one button: "New counter" - clicking on it will add a counter to the screen
 //      - next to each counter show a delete button to remove the counter from the screen
 //      - counters should not be synced (each should have an individual state)
+// 4. add up/down buttons in each counter in the list to re-order the counters
 // Bonus - maintain the state of the counters when "navigating" back and forth  between the components
 
 function App() {
+  const [currentTab, setCurrentTab] = useState<"synced" | "list">("synced");
+
   return (
     <>
-      <SyncedCounters />
-      <CounterList />
+      <Nav onSyncedClick={() => setCurrentTab("synced")} onListClick={() => setCurrentTab("list")} />
+      {currentTab === "synced" ? <SyncedCounters /> : <CounterList />}
     </>
+  );
+}
+
+type NavProps = {
+  onSyncedClick: () => void;
+  onListClick: () => void;
+};
+function Nav({ onSyncedClick, onListClick }: NavProps) {
+  return (
+    <nav>
+      <button onClick={onSyncedClick}>Synced</button>
+      <button onClick={onListClick}>List</button>
+    </nav>
   );
 }
 
@@ -52,8 +68,19 @@ function SyncedCounters() {
 }
 
 function CounterList() {
+  const [counters, setCounters] = useState<number[]>([]);
+
+  function newCounter() {
+    setCounters([...counters, 0]);
+  }
+  
   return (
-    <div>Counter list</div>
+    <>
+      <button onClick={newCounter}>New counter</button>
+      <ul>
+        {counters.map((count, index) => <li key={index}>{count}</li>)}
+      </ul>
+    </>
   );
 }
 
