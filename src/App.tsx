@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { Counter } from "./Counter";
+import { Nav } from "./components/Nav";
+import { SyncedCounters } from "./components/SyncedCounter";
+import { CounterList } from "./components/counterList";
+
+
 
 // 1. add "SPA navigation" - menu with button to show the synced counters and another button to show the counter list
 // 2. implement "static" counter list - show 4 counters with individual states
@@ -21,67 +25,5 @@ function App() {
   );
 }
 
-type NavProps = {
-  onSyncedClick: () => void;
-  onListClick: () => void;
-};
-function Nav({ onSyncedClick, onListClick }: NavProps) {
-  return (
-    <nav>
-      <button onClick={onSyncedClick}>Synced</button>
-      <button onClick={onListClick}>List</button>
-    </nav>
-  );
-}
-
-function SyncedCounters() {
-  const [count, setCount] = useState(0);
-
-  function half() {
-    setCount(count / 2);
-  }
-
-  function decrease() {
-    setCount(count - 1);
-  }
-
-  function increase() {
-    setCount(count + 1);
-  }
-
-  function double() {
-    setCount(count * 2);
-  }
-
-  function reset() {
-    setCount(0);
-  }
-
-  return (
-    <>
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-    </>
-  );
-}
-
-function CounterList() {
-  const [counters, setCounters] = useState<number[]>([]);
-
-  function newCounter() {
-    setCounters([...counters, 0]);
-  }
-  
-  return (
-    <>
-      <button onClick={newCounter}>New counter</button>
-      <ul>
-        {counters.map((count, index) => <li key={index}>{count}</li>)}
-      </ul>
-    </>
-  );
-}
 
 export default App;
