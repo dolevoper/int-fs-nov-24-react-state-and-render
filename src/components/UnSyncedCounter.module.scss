@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.2rem;
+
+    margin-block-start: 2rem;
+
+    > * {
+        flex: 1;
+        text-align: center;
+    }
+}
