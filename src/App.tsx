@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Nav } from "./components/Nav";
 import { SyncedCounters } from "./components/SyncedCounter";
 import { CounterList } from "./components/counterList";
 import { Routes, Route, Link } from "react-router-dom";
@@ -22,25 +20,19 @@ function Home() {
 }
 
 function App() {
-  const [currentTab, setCurrentTab] = useState<"synced" | "list">("synced");
-
-  return(
+  return (
     <>
       <nav>
-        <Link to="/">Home</Link> | <Link to="/counters">Counters</Link>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/synced">Synced Counters</Link> |{" "}
+        <Link to="/counters">Dynamic Counters</Link>
       </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/synced" element={<SyncedCounters />} />
         <Route path="/counters" element={<CounterList />} />
       </Routes>
-    </>
-  );
-
-  return (
-    <>
-      <Nav onSyncedClick={() => setCurrentTab("synced")} onListClick={() => setCurrentTab("list")} />
-      {currentTab === "synced" ? <SyncedCounters /> : <CounterList />}
     </>
   );
 }
