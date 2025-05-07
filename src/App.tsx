@@ -1,5 +1,8 @@
-import { useState } from "react";
-import { Counter } from "./Counter";
+import { SyncedCounters } from "./components/SyncedCounter";
+import { CounterList } from "./components/counterList";
+import { Routes, Route, Link } from "react-router-dom";
+
+
 
 // 1. add "SPA navigation" - menu with button to show the synced counters and another button to show the counter list
 // 2. implement "static" counter list - show 4 counters with individual states
@@ -10,78 +13,29 @@ import { Counter } from "./Counter";
 // 4. add up/down buttons in each counter in the list to re-order the counters
 // Bonus - maintain the state of the counters when "navigating" back and forth  between the components
 
+function Home() {
+  return(
+    <h1>Home Page</h1>
+  );
+}
+
 function App() {
-  const [currentTab, setCurrentTab] = useState<"synced" | "list">("synced");
-
   return (
     <>
-      <Nav onSyncedClick={() => setCurrentTab("synced")} onListClick={() => setCurrentTab("list")} />
-      {currentTab === "synced" ? <SyncedCounters /> : <CounterList />}
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/synced">Synced Counters</Link> |{" "}
+        <Link to="/counters">Dynamic Counters</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/synced" element={<SyncedCounters />} />
+        <Route path="/counters" element={<CounterList />} />
+      </Routes>
     </>
   );
 }
 
-type NavProps = {
-  onSyncedClick: () => void;
-  onListClick: () => void;
-};
-function Nav({ onSyncedClick, onListClick }: NavProps) {
-  return (
-    <nav>
-      <button onClick={onSyncedClick}>Synced</button>
-      <button onClick={onListClick}>List</button>
-    </nav>
-  );
-}
-
-function SyncedCounters() {
-  const [count, setCount] = useState(0);
-
-  function half() {
-    setCount(count / 2);
-  }
-
-  function decrease() {
-    setCount(count - 1);
-  }
-
-  function increase() {
-    setCount(count + 1);
-  }
-
-  function double() {
-    setCount(count * 2);
-  }
-
-  function reset() {
-    setCount(0);
-  }
-
-  return (
-    <>
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-      <Counter count={count} onHalfClick={half} onDecreaseClick={decrease} onIncreaseClick={increase} onDoubleClick={double} onResetClick={reset} />
-    </>
-  );
-}
-
-function CounterList() {
-  const [counters, setCounters] = useState<number[]>([]);
-
-  function newCounter() {
-    setCounters([...counters, 0]);
-  }
-  
-  return (
-    <>
-      <button onClick={newCounter}>New counter</button>
-      <ul>
-        {counters.map((count, index) => <li key={index}>{count}</li>)}
-      </ul>
-    </>
-  );
-}
 
 export default App;
