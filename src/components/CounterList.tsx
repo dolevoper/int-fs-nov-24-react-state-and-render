@@ -28,6 +28,7 @@ export function CounterList() {
 
   function deleteAllCounters() {
     setCounters([]);
+    localStorage.removeItem(STORAGE_KEY);
   }
 
   useEffect(() => {
