@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UnSyncedCounter } from "./UnSyncedCounter";
 import styles from "./CounterList.module.scss"
 
+const STORAGE_KEY = "myCounters";
 
 export function CounterList() {
   const [counters, setCounters] = useState<{ id: number }[]>([]);
+
+  useEffect(() => {
+    const savedCounters = localStorage.getItem(STORAGE_KEY);
+    if (savedCounters) {
+      try {
+        setCounters(JSON.parse(savedCounters));
+      } catch (error) {
+        console.error("Error parsing counters from localStorage:", error);
+      }
+    }
+  }, []);
 
   function newCounter() {
     setCounters([...counters, { id: Date.now() }]);
@@ -17,6 +29,16 @@ export function CounterList() {
   function deleteAllCounters() {
     setCounters([]);
   }
+
+  useEffect(() => {
+    if (counters.length > 0) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(counters));
+      } catch (error) {
+        console.error("Error saving counters to localStorage:", error)
+      }
+    }
+  }, [counters]);
 
   function moveCounter(fromIndex: number, toIndex: number) {
     const updatedCounters = [...counters];

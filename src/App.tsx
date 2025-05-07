@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { Nav } from "./components/Nav";
-import { SyncedCounters } from "./components/SyncedCounter";
 import { CounterList } from "./components/counterList";
+import { Routes, Route, Link } from "react-router-dom";
 
 
 
@@ -14,13 +12,24 @@ import { CounterList } from "./components/counterList";
 // 4. add up/down buttons in each counter in the list to re-order the counters
 // Bonus - maintain the state of the counters when "navigating" back and forth  between the components
 
-function App() {
-  const [currentTab, setCurrentTab] = useState<"synced" | "list">("synced");
+function Home() {
+  return(
+    <h1>Home Page</h1>
+  );
+}
 
-  return (
+function App() {
+
+  return(
     <>
-      <Nav onSyncedClick={() => setCurrentTab("synced")} onListClick={() => setCurrentTab("list")} />
-      {currentTab === "synced" ? <SyncedCounters /> : <CounterList />}
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/counters">Counters</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/counters" element={<CounterList />} />
+      </Routes>
     </>
   );
 }
