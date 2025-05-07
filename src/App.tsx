@@ -67,11 +67,38 @@ function SyncedCounters() {
   );
 }
 
+const counterListStorageKey = "counterList";
+
 function CounterList() {
-  const [counters, setCounters] = useState<number[]>([]);
+  const [counters, setCounters] = useState<number[]>(() => {
+    const valueFromStorage = localStorage.getItem(counterListStorageKey);
+
+    if (!valueFromStorage) {
+      return [];
+    }
+
+    try {
+      const savedCounters = JSON.parse(valueFromStorage);
+
+      if (!Array.isArray(savedCounters) || savedCounters.some((value) => typeof value !== "number")) {
+        throw new Error();
+      }
+
+      return savedCounters;
+    } catch {
+      localStorage.removeItem(counterListStorageKey);
+
+      return [];
+    }
+  });
+
+  function updateCounters(newValue: number[]) {
+    setCounters(newValue);
+    localStorage.setItem(counterListStorageKey, JSON.stringify(newValue));
+  }
 
   function newCounter() {
-    setCounters([...counters, 0]);
+    updateCounters([...counters, 0]);
   }
   
   return (
